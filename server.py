@@ -1,8 +1,9 @@
-from flask import Flask,request,abort
+from flask import Flask,request,abort,Response
 from datetime import datetime
 import time
 
 app = Flask(__name__)
+app.config.from_pyfile('config.py')
 messages = [
     {'name':"John", 'time':time.time(),'text':"asasdfasdf"},
     {'name':"John", 'time':time.time(),'text':"asasdfasdf"},
@@ -13,10 +14,10 @@ messages = [
 ]
 
 users = {'John':'12345', 'Nick':'qwerty','orca':'orca'}
-
+time_after = time.time() - 24 * 60 * 60
 @app.route("/")
 def hello_view():
-    return "Hello, World! <a href = '/status'>Статус</a>"
+    return f"Hello, World! <a href = '/status'>Статус</a> <a href = '/messages?after={time_after}'>Сообщения </a>"
 
 @app.route("/status")
 def status_view():

@@ -2,7 +2,7 @@ import time
 from datetime import datetime
 import requests
 from client_ui import Ui_MainWindow
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 
 
 class ExampleApp(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -55,14 +55,12 @@ class ExampleApp(QtWidgets.QMainWindow, Ui_MainWindow):
                    'password': password}
         try:
             response = requests.post('http://127.0.0.1:5000/send', json=message)
-            print("Cnатус-код: ",response.status_code)
             if response.status_code == 200:
-                self.textBrowser.append("Message sent successfully")
                 self.textEdit.setText('')  # clear text editor after sending message
             elif response.status_code == 401:
                 self.print_error_message('Unauthorised user')
-            # else:
-            #     self.print_error_message('Unknown error. Please reboot the app')
+            else:
+                self.print_error_message('Unknown error. Please reboot the app')
         except:
             self.print_error_message("Some error on the server")
             return
