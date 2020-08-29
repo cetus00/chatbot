@@ -68,4 +68,8 @@ def messages_view():
     filtered_messages = filter_dicts(messages,key='time',min_value=after)
     return {"messages":filtered_messages}
 
-app.run()
+def run():
+    app.run()
+
+if __name__ == "__main__":
+    run()
